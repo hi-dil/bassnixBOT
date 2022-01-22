@@ -1,3 +1,4 @@
 src/constant.js
 node_modules/
 .prettierrc
+.env

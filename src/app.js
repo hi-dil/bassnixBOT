@@ -7,11 +7,7 @@ import {
 import {
     username
 } from 'tmi.js/lib/utils';
-import {
-    BOT_USERNAME,
-    OAUTH_TOKEN,
-    CHANNEL_NAME
-} from './constant';
+
 
 const https = require('https');
 
@@ -24,10 +20,10 @@ const options = {
         secure: true
     },
     identity: {
-        username: BOT_USERNAME,
-        password: OAUTH_TOKEN
+        username: process.env.BOT_USERNAME,
+        password: process.env.OAUTH_TOKEN
     },
-    channels: CHANNEL_NAME
+    channels: ['bassnixBOT']
 }
 
 const twoArgsRegex = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?([a-zA-Z0-9!@#$&()`.+_,/"-]+)?(?:\W+)?(.*)?/);
