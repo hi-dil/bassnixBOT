@@ -224,6 +224,10 @@ client.on('message', (channel, userstate, message, self) => {
     if (cmd === 'ans' && trivia === true && status === 'offline') {
         let userAnswer = args.join(' ').trim();
         let correctAnswer = questions[questionsIndex].answer.trim();
+        let firstHint = correctAnswer.substring(0, 2)
+        let secondHint = correctAnswer.substring(2)
+        let second = secondHint.replace(/\d|\w/g, "_")
+        let hint = firstHint.concat(second);
 
         if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
             client.say(channel, `FeelsOkayMan ${userstate.username} is correct. The answer is "${questions[questionsIndex].answer}"`);
@@ -235,11 +239,19 @@ client.on('message', (channel, userstate, message, self) => {
             client.say(channel, `FeelsDankMan wrong answer`);
 
             switch (tries) {
-                case 3:
+                case 2:
                     client.say(channel, `First Hint: ${questions[questionsIndex].hint1}`);
                     break;
-                case 6:
+                case 4:
                     client.say(channel, `Second Hint: ${questions[questionsIndex].hint2}`);
+                    break;
+                case 6: 
+                    client.say(channel, `Third Hint: ${correctAnswer.replace(/\d|\w/g, "_")}`)
+                    break;
+                case 8:
+                    if (correctAnswer.length != 2) {
+                        client.say(channel, `Last Hint: ${hint}`)
+                    }
                     break;
                 case 10:
                     client.say(channel, `The answer is "${questions[questionsIndex].answer}"`);
