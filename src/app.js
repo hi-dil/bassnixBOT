@@ -23,7 +23,7 @@ const options = {
         username: process.env.BOT_USERNAME,
         password: process.env.OAUTH_TOKEN
     },
-    channels: ['bassnix', 'jeyrossa']
+    channels: ['jeyrossa', 'bassnix']
 }
 
 const twoArgsRegex = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?([a-zA-Z0-9!@#$&()`.+_,/"-]+)?(?:\W+)?(.*)?/);
@@ -222,8 +222,8 @@ client.on('message', (channel, userstate, message, self) => {
     }
 
     if (cmd === 'ans' && trivia === true && status === 'offline') {
-        let userAnswer = args.join(' ');
-        let correctAnswer = questions[questionsIndex].answer;
+        let userAnswer = args.join(' ').trim();
+        let correctAnswer = questions[questionsIndex].answer.trim();
 
         if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
             client.say(channel, `FeelsOkayMan ${userstate.username} is correct. The answer is "${questions[questionsIndex].answer}"`);
