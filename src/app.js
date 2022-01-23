@@ -23,7 +23,7 @@ const options = {
         username: process.env.BOT_USERNAME,
         password: process.env.OAUTH_TOKEN
     },
-    channels: ['jeyrossa', 'bassnix']
+    channels: ['bassnixBOT']
 }
 
 const twoArgsRegex = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?([a-zA-Z0-9!@#$&()`.+_,/"-]+)?(?:\W+)?(.*)?/);
@@ -245,14 +245,6 @@ client.on('message', (channel, userstate, message, self) => {
                 case 4:
                     client.say(channel, `Second Hint: ${questions[questionsIndex].hint2}`);
                     break;
-                case 6: 
-                    client.say(channel, `Third Hint: ${correctAnswer.replace(/\d|\w/g, "_")}`)
-                    break;
-                case 8:
-                    if (correctAnswer.length != 2) {
-                        client.say(channel, `Last Hint: ${hint}`)
-                    }
-                    break;
                 case 10:
                     client.say(channel, `The answer is "${questions[questionsIndex].answer}"`);
                     client.say(channel, `trivia ended NaM`);
@@ -261,6 +253,31 @@ client.on('message', (channel, userstate, message, self) => {
             }
 
         }
+    }
+
+    if (cmd === 'hint' && trivia === true) {
+        let correctAnswer = questions[questionsIndex].answer.trim();
+        let firstHint;
+        let secondHint;
+
+        if (correctAnswer.length<=3) {
+            firstHint = correctAnswer.substring(0,1);
+            secondHint = correctAnswer.substring(1);
+        } else if (correctAnswer.length <=6 && correctAnswer.length>3) {
+            firstHint = correctAnswer.substring(0,2);
+            secondHint = correctAnswer.substring(2);
+        } else if (correctAnswer.length <=10 && correctAnswer.length>6) {
+            firstHint = correctAnswer.substring(0,3);
+            secondHint = correctAnswer.substring(3);
+        } else {
+            firstHint = correctAnswer.substring(0,4);
+            secondHint = correctAnswer.substring(4);
+        }
+
+        let second = secondHint.replace(/\d|\w/g, "_")
+        let hint = firstHint.concat(second);
+
+        client.say(channel, hint);
     }
 
     if (cmd === 'endtrivia' && status === 'offline') {
