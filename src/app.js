@@ -23,7 +23,7 @@ const options = {
         username: process.env.BOT_USERNAME,
         password: process.env.OAUTH_TOKEN
     },
-    channels: ['bassnixBOT']
+    channels: ['jeyrossa']
 }
 
 const twoArgsRegex = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?([a-zA-Z0-9!@#$&()`.+_,/"-]+)?(?:\W+)?(.*)?/);
